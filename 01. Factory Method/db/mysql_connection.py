@@ -9,17 +9,18 @@ class MySQLConnection(DBConnection):
         self.user = user             # Usuario para la conexión
         self.password = password     # Contraseña del usuario
         self.database = database     # Base de datos a la que se conectará
+        self.connection = None       # Inicializamos la variable de conexión
 
     # Implementación del método abstracto connect()
     def connect(self):
         # Utilizamos mysql.connector para realizar la conexión a la base de datos
-        mydb = mysql.connector.connect(
+        self.connection = mysql.connector.connect(
             host=self.host,          # Usamos los valores definidos en el constructor
             user=self.user,
             password=self.password,
             database=self.database
         )
-        return mydb                  # Retornamos el objeto de conexión
+        return self.connection       # Retornamos el objeto de conexión
     
     # Método para cerrar la conexión
     def close_connection(self):
